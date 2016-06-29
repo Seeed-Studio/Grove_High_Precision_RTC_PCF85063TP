@@ -29,6 +29,7 @@
 #include <Arduino.h>
 
 #define PCD85063TP_I2C_ADDRESS 0x51
+#define PCD85063TP_OFFSET 0x02
 
 #define MON 1
 #define TUE 2
@@ -50,6 +51,8 @@ public:
   void stopClock(void);
   void setTime(void);
   void getTime(void);
+  void setcalibration(int mode, float Fmeas);
+  uint8_t readCalibrationReg(void);
   void reset();
   void fillByHMS(uint8_t _hour, uint8_t _minute, uint8_t _second);
   void fillByYMD(uint16_t _year, uint8_t _month, uint8_t _day);

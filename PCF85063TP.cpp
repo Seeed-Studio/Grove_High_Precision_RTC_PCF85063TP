@@ -127,3 +127,34 @@ void PCD85063TP::reset()
   Wire.write(decToBcd(0x10));// software reset at bit 4
   Wire.endTransmission();
 }
+
+// mode: calibration cycle
+//       0 - 2 hours
+//       1 - 4 minutes
+// Fmeas: Real frequency you detect
+void PCD85063TP::setcalibration(int mode, float Fmeas)
+{
+  float offset = 0;
+  float Tmeas = 1.0/Fmeas;
+  float Dmeas = 1.0/32768 - Tmeas;
+  float Eppm = 1000000.0 * Dmeas/Tmeas;
+  if (mode == 0) offset = Eppm/4.34;
+  else if (mode == 1) offset = Eppm/4.069;
+
+  uint8_t data = (mode << 7) & 0x80 | ((int)(offset+0.5) & 0x7f);
+
+  Wire.beginTransmission(PCD85063TP_I2C_ADDRESS);
+  Wire.write(PCD85063TP_OFFSET);
+  Wire.write(data);
+  Wire.endTransmission();
+}
+
+uint8_t PCD85063TP::readCalibrationReg(void)
+{
+  Wire.beginTransmission(PCD85063TP_I2C_ADDRESS);
+  Wire.write((uint8_t)0x02);
+  Wire.endTransmission();
+  Wire.requestFrom(PCD85063TP_I2C_ADDRESS, 1);
+
+  return Wire.read();
+}
