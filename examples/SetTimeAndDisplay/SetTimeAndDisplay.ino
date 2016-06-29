@@ -31,15 +31,14 @@ void setup()
 {
   Serial.begin(9600);
   clock.begin();
-  /*
   clock.stopClock();
   clock.fillByYMD(2016,6,14);//Jan 19,2013
   clock.fillByHMS(13,58,30);//15:28 30"
   clock.fillDayOfWeek(TUE);//Saturday
   clock.setTime();//write time to the RTC chip
   clock.startClock();
-  */
-  clock.setcalibration(1, 32767.2);
+  
+  //clock.setcalibration(1, 32767.2);
   Serial.print("offset value: ");
   Serial.println(clock.readCalibrationReg(), HEX);
 }

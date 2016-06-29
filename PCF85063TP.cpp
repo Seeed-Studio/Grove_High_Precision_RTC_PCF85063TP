@@ -129,8 +129,8 @@ void PCD85063TP::reset()
 }
 
 // mode: calibration cycle
-//       0 - 2 hours
-//       1 - 4 minutes
+//       mode 0 -> every 2 hours
+//       mode 1 -> every 4 minutes
 // Fmeas: Real frequency you detect
 void PCD85063TP::setcalibration(int mode, float Fmeas)
 {
