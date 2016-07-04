@@ -52,6 +52,7 @@ public:
   void setTime(void);
   void getTime(void);
   void setcalibration(int mode, float Fmeas);
+  uint8_t calibratBySeconds(int mode, float offset_sec);
   uint8_t readCalibrationReg(void);
   void reset();
   void fillByHMS(uint8_t _hour, uint8_t _minute, uint8_t _second);

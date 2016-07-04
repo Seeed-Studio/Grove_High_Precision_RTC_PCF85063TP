@@ -128,6 +128,22 @@ void PCD85063TP::reset()
   Wire.endTransmission();
 }
 
+/* 
+ * Calibrate clock offset at register 0x02
+ * Parameter:
+ *   mode = 0, calibrate every 2 hours
+ *   mode = 1, calibrate every 4 minutes 
+ *   offset_sec, offset value of one second. 
+ *   If the RTC time too fast: offset_sec < 0     
+ *   If the RTC time too slow: offset_sec > 0 
+ */
+uint8_t PCD85063TP::calibratBySeconds(int mode, float offset_sec)
+{
+  float Fmeas = 32768.0 + offset_sec * 32768.0;
+  setcalibration(mode, Fmeas);
+  return readCalibrationReg();
+}
+
 // mode: calibration cycle
 //       mode 0 -> every 2 hours
 //       mode 1 -> every 4 minutes
