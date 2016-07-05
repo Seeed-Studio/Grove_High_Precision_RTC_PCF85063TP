@@ -30,6 +30,18 @@
 
 #define PCD85063TP_I2C_ADDRESS 0x51
 #define PCD85063TP_OFFSET 0x02
+#define REG_CTRL1         0x00
+#define REG_CTRL1_STOP    0x20
+#define REG_CTRL2         0x01
+#define REG_OFFSET        0x02
+#define REG_SEC           0x04
+#define REG_SEC_OS        0x80
+#define REG_MIN           0x05
+#define REG_HOUR          0x06
+#define REG_DAY_MONTH     0x07
+#define REG_DAY_WEEK      0x08
+#define REG_MON           0x09
+#define REG_YEAR          0x0A
 
 #define MON 1
 #define TUE 2
@@ -65,6 +77,8 @@ public:
   uint8_t dayOfMonth;
   uint8_t month;
   uint16_t year;
+private:
+  void writeReg(uint8_t reg, uint8_t data);
 };
 
 #endif

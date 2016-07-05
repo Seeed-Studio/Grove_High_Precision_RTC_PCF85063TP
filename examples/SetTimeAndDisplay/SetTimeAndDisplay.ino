@@ -32,13 +32,13 @@ void setup()
   Serial.begin(9600);
   clock.begin();
   clock.stopClock();
-  clock.fillByYMD(2016,6,14);//Jan 19,2013
-  clock.fillByHMS(13,58,30);//15:28 30"
+  clock.fillByYMD(2016,7,5);//Jan 19,2013
+  clock.fillByHMS(14,10,00);//15:28 30"
   clock.fillDayOfWeek(TUE);//Saturday
   clock.setTime();//write time to the RTC chip
   clock.startClock();
   
-  //clock.setcalibration(1, 32767.2);
+  //clock.setcalibration(1, 32767.2);  // Setting offset by clock frequency
   uint8_t ret = clock.calibratBySeconds(0, -0.000021);
   Serial.print("offset value: ");
   Serial.print("0x");

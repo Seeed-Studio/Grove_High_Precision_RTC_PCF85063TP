@@ -91,16 +91,13 @@ void PCD85063TP::getTime()
 /*Frunction: Write the time that includes the date to the RTC chip */
 void PCD85063TP::setTime()
 {
-  Wire.beginTransmission(PCD85063TP_I2C_ADDRESS);
-  Wire.write((uint8_t)0x40);
-  Wire.write(decToBcd(second));// 0 to bit 7 starts the clock, bit 8 is OS reg
-  Wire.write(decToBcd(minute));
-  Wire.write(decToBcd(hour));  // If you want 12 hour am/pm you need to set bit 6
-  Wire.write(decToBcd(dayOfMonth));
-  Wire.write(decToBcd(dayOfWeek));
-  Wire.write(decToBcd(month));
-  Wire.write(decToBcd(year));
-  Wire.endTransmission();
+  writeReg(REG_SEC, decToBcd(second));// 0 to bit 7 starts the clock, bit 8 is OS reg
+  writeReg(REG_MIN, decToBcd(minute));
+  writeReg(REG_HOUR, decToBcd(hour));  // If you want 12 hour am/pm you need to set bit 6
+  writeReg(REG_DAY_MONTH, decToBcd(dayOfMonth));
+  writeReg(REG_DAY_WEEK, decToBcd(dayOfWeek));
+  writeReg(REG_MON, decToBcd(month));
+  writeReg(REG_YEAR, decToBcd(year));
 }
 void PCD85063TP::fillByHMS(uint8_t _hour, uint8_t _minute, uint8_t _second)
 {
@@ -158,11 +155,7 @@ void PCD85063TP::setcalibration(int mode, float Fmeas)
   else if (mode == 1) offset = Eppm/4.069;
 
   uint8_t data = (mode << 7) & 0x80 | ((int)(offset+0.5) & 0x7f);
-
-  Wire.beginTransmission(PCD85063TP_I2C_ADDRESS);
-  Wire.write(PCD85063TP_OFFSET);
-  Wire.write(data);
-  Wire.endTransmission();
+  writeReg(PCD85063TP_OFFSET, data);
 }
 
 uint8_t PCD85063TP::readCalibrationReg(void)
@@ -173,4 +166,13 @@ uint8_t PCD85063TP::readCalibrationReg(void)
   Wire.requestFrom(PCD85063TP_I2C_ADDRESS, 1);
 
   return Wire.read();
+}
+
+void PCD85063TP::writeReg(uint8_t reg, uint8_t data)
+{
+  Wire.beginTransmission(PCD85063TP_I2C_ADDRESS);
+  Wire.write(reg & 0xFF);
+  Wire.write(data & 0xFF);
+  Wire.endTransmission();
+
 }
