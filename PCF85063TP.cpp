@@ -40,6 +40,8 @@ uint8_t PCD85063TP::bcdToDec(uint8_t val)
 void PCD85063TP::begin()
 {
   Wire.begin();
+  cap_sel(CAP_SEL_12_5PF);  // CAP_SEL bit setting 12.5pF  
+
 }
 /*Function: The clock timing will start */
 void PCD85063TP::startClock(void)        // set the ClockHalt bit low to start the rtc
@@ -126,8 +128,8 @@ void PCD85063TP::reset()
 }
 
 /* 
- * Calibrate clock offset at register 0x02
- * Parameter:
+ * @brief  clock calibration setting
+ * @Parameter:
  *   mode = 0, calibrate every 2 hours
  *   mode = 1, calibrate every 4 minutes 
  *   offset_sec, offset value of one second. 
@@ -140,11 +142,13 @@ uint8_t PCD85063TP::calibratBySeconds(int mode, float offset_sec)
   setcalibration(mode, Fmeas);
   return readCalibrationReg();
 }
+/* 
+ * @brief: Clock calibrate setting 
+ * @parm: 
+ *        mode: calibration cycle, mode 0 -> every 2 hours, mode 1 -> every 4 minutes
+ *        Fmeas: Real frequency you detect
+ */
 
-// mode: calibration cycle
-//       mode 0 -> every 2 hours
-//       mode 1 -> every 4 minutes
-// Fmeas: Real frequency you detect
 void PCD85063TP::setcalibration(int mode, float Fmeas)
 {
   float offset = 0;
@@ -158,14 +162,40 @@ void PCD85063TP::setcalibration(int mode, float Fmeas)
   writeReg(PCD85063TP_OFFSET, data);
 }
 
+
 uint8_t PCD85063TP::readCalibrationReg(void)
 {
+  return readReg(PCD85063TP_OFFSET);
+}
+
+
+/*
+ * @brief: internal oscillator capacitor selection for
+ *         quartz crystals with a corresponding load capacitance
+ * @parm:        
+ *       value(0 or 1): 0 - 7 pF  
+ *                      1 - 12.5 pF  
+ * @return: value of CAP_SEL bit
+ */
+uint8_t PCD85063TP::cap_sel(uint8_t value)
+{
+  uint8_t control_1 = readReg(REG_CTRL1);
+  control_1 = (control_1 & 0xFE) | (0x01 & value);
+  writeReg(REG_CTRL1, control_1);
+
+  return readReg(REG_CTRL1) & 0x01;
+}
+
+
+uint8_t PCD85063TP::readReg(uint8_t reg)
+{
   Wire.beginTransmission(PCD85063TP_I2C_ADDRESS);
-  Wire.write((uint8_t)0x02);
+  Wire.write(reg & 0xFF);
   Wire.endTransmission();
   Wire.requestFrom(PCD85063TP_I2C_ADDRESS, 1);
 
   return Wire.read();
+
 }
 
 void PCD85063TP::writeReg(uint8_t reg, uint8_t data)

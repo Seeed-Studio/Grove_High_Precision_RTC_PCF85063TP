@@ -42,6 +42,8 @@
 #define REG_DAY_WEEK      0x08
 #define REG_MON           0x09
 #define REG_YEAR          0x0A
+#define CAP_SEL_7PF       0
+#define CAP_SEL_12_5PF    1
 
 #define MON 1
 #define TUE 2
@@ -66,6 +68,7 @@ public:
   void setcalibration(int mode, float Fmeas);
   uint8_t calibratBySeconds(int mode, float offset_sec);
   uint8_t readCalibrationReg(void);
+  uint8_t cap_sel(uint8_t value);
   void reset();
   void fillByHMS(uint8_t _hour, uint8_t _minute, uint8_t _second);
   void fillByYMD(uint16_t _year, uint8_t _month, uint8_t _day);
@@ -77,7 +80,8 @@ public:
   uint8_t dayOfMonth;
   uint8_t month;
   uint16_t year;
-private:
+private:  
+  uint8_t readReg(uint8_t reg);
   void writeReg(uint8_t reg, uint8_t data);
 };
 
