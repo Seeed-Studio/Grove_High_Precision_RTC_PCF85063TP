@@ -1,7 +1,9 @@
 # Grove - High Precision RTC_PCF85063TP
-Grove RTC is based on PCD85063TP, it's usage is almost the same with ds1307.
+Grove - High Precision RTC is based on PCD85063TP, it's usage is almost the same with ds1307.
 
 <img src=https://statics3.seeedstudio.com/seeed/img/2016-11/1GtDOEsSVtk0i3pa5JBXOSTb.jpg width=300><img src=https://statics3.seeedstudio.com/seeed/img/2016-11/brK2Tu9LnaVBztZnmbP8x0we.jpg width=300>
+
+[Grove - High Precision RTC](https://www.seeedstudio.com/Grove-High-Precision-RTC-p-2741.html)
 
 Grove - High Precision RTC based on the clock chip PCF85063TP which is a CMOS Real-Time Clock (RTC) and calendar optimized for low power consumption. An offset register allows fine-tuning of the clock. All addresses and data are transferred serially via the I2C bus and the maximum bus speed is 400 kbit/s.
 
