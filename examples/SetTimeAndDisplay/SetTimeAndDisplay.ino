@@ -26,18 +26,18 @@
 #include <Wire.h>
 #include "PCF85063TP.h"
 
-PCD85063TP clock;//define a object of PCD85063TP class
+PCD85063TP RTclock;//define a object of PCD85063TP class
 void setup()
 {
   Serial.begin(9600);
-  clock.begin();
+  RTclock.begin();
  /*
-  clock.stopClock();
-  clock.fillByYMD(2016,7,5);//Jan 19,2013
-  clock.fillByHMS(14,10,00);//15:28 30"
-  clock.fillDayOfWeek(TUE);//Saturday
-  clock.setTime();//write time to the RTC chip
-  clock.startClock();
+  RTclock.stopClock();
+  RTclock.fillByYMD(2016,7,5);//Jan 19,2013
+  RTclock.fillByHMS(14,10,00);//15:28 30"
+  RTclock.fillDayOfWeek(TUE);//Saturday
+  RTclock.setTime();//write time to the RTC chip
+  RTclock.startClock();
 
 */
   //clock.setcalibration(1, 32767.2);  // Setting offset by clock frequency
@@ -56,21 +56,21 @@ void loop()
 void printTime()
 {
   clock.getTime();
-  Serial.print(clock.hour, DEC);
+  Serial.print(RTclock.hour, DEC);
   Serial.print(":");
-  Serial.print(clock.minute, DEC);
+  Serial.print(RTclock.minute, DEC);
   Serial.print(":");
-  Serial.print(clock.second, DEC);
+  Serial.print(RTclock.second, DEC);
   Serial.print("  ");
-  Serial.print(clock.month, DEC);
+  Serial.print(RTclock.month, DEC);
   Serial.print("/");
-  Serial.print(clock.dayOfMonth, DEC);
+  Serial.print(RTclock.dayOfMonth, DEC);
   Serial.print("/");
-  Serial.print(clock.year+2000, DEC);
+  Serial.print(RTclock.year+2000, DEC);
   Serial.print(" ");
-  Serial.print(clock.dayOfMonth);
+  Serial.print(RTclock.dayOfMonth);
   Serial.print("*");
-  switch (clock.dayOfWeek)// Friendly printout the weekday
+  switch (RTclock.dayOfWeek)// Friendly printout the weekday
   {
     case MON:
       Serial.print("MON");
