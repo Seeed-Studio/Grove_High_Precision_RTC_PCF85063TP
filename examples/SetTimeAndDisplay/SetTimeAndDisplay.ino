@@ -27,72 +27,68 @@
 #include "PCF85063TP.h"
 
 PCD85063TP RTclock;//define a object of PCD85063TP class
-void setup()
-{
-  Serial.begin(9600);
-  RTclock.begin();
- /*
-  RTclock.stopClock();
-  RTclock.fillByYMD(2016,7,5);//Jan 19,2013
-  RTclock.fillByHMS(14,10,00);//15:28 30"
-  RTclock.fillDayOfWeek(TUE);//Saturday
-  RTclock.setTime();//write time to the RTC chip
-  RTclock.startClock();
+void setup() {
+    Serial.begin(9600);
+    RTclock.begin();
+    /*
+        RTclock.stopClock();
+        RTclock.fillByYMD(2016,7,5);//Jan 19,2013
+        RTclock.fillByHMS(14,10,00);//15:28 30"
+        RTclock.fillDayOfWeek(TUE);//Saturday
+        RTclock.setTime();//write time to the RTC chip
+        RTclock.startClock();
 
-*/
-  //clock.setcalibration(1, 32767.2);  // Setting offset by clock frequency
-  uint8_t ret = clock.calibratBySeconds(0, -0.000041);
-  Serial.print("offset value: ");
-  Serial.print("0x");
-  Serial.println(ret, HEX);
- 
+    */
+    //clock.setcalibration(1, 32767.2);  // Setting offset by clock frequency
+    uint8_t ret = clock.calibratBySeconds(0, -0.000041);
+    Serial.print("offset value: ");
+    Serial.print("0x");
+    Serial.println(ret, HEX);
+
 }
-void loop()
-{
-  printTime();
-  delay(1000);
+void loop() {
+    printTime();
+    delay(1000);
 }
 /*Function: Display time on the serial monitor*/
-void printTime()
-{
-  clock.getTime();
-  Serial.print(RTclock.hour, DEC);
-  Serial.print(":");
-  Serial.print(RTclock.minute, DEC);
-  Serial.print(":");
-  Serial.print(RTclock.second, DEC);
-  Serial.print("  ");
-  Serial.print(RTclock.month, DEC);
-  Serial.print("/");
-  Serial.print(RTclock.dayOfMonth, DEC);
-  Serial.print("/");
-  Serial.print(RTclock.year+2000, DEC);
-  Serial.print(" ");
-  Serial.print(RTclock.dayOfMonth);
-  Serial.print("*");
-  switch (RTclock.dayOfWeek)// Friendly printout the weekday
-  {
-    case MON:
-      Serial.print("MON");
-      break;
-    case TUE:
-      Serial.print("TUE");
-      break;
-    case WED:
-      Serial.print("WED");
-      break;
-    case THU:
-      Serial.print("THU");
-      break;
-    case FRI:
-      Serial.print("FRI");
-      break;
-    case SAT:
-      Serial.print("SAT");
-      break;
-    case SUN:
-      Serial.print("SUN");
-      break;
-  }
-  Serial.println(" ");
+void printTime() {
+    clock.getTime();
+    Serial.print(RTclock.hour, DEC);
+    Serial.print(":");
+    Serial.print(RTclock.minute, DEC);
+    Serial.print(":");
+    Serial.print(RTclock.second, DEC);
+    Serial.print("  ");
+    Serial.print(RTclock.month, DEC);
+    Serial.print("/");
+    Serial.print(RTclock.dayOfMonth, DEC);
+    Serial.print("/");
+    Serial.print(RTclock.year + 2000, DEC);
+    Serial.print(" ");
+    Serial.print(RTclock.dayOfMonth);
+    Serial.print("*");
+    switch (RTclock.dayOfWeek) { // Friendly printout the weekday
+        case MON:
+            Serial.print("MON");
+            break;
+        case TUE:
+            Serial.print("TUE");
+            break;
+        case WED:
+            Serial.print("WED");
+            break;
+        case THU:
+            Serial.print("THU");
+            break;
+        case FRI:
+            Serial.print("FRI");
+            break;
+        case SAT:
+            Serial.print("SAT");
+            break;
+        case SUN:
+            Serial.print("SUN");
+            break;
+    }
+    Serial.println(" ");
 }

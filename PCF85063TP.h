@@ -53,36 +53,35 @@
 #define SAT 6
 #define SUN 0
 
-class PCD85063TP
-{
-private:
-  uint8_t decToBcd(uint8_t val);
-  uint8_t bcdToDec(uint8_t val);
+class PCD85063TP {
+  private:
+    uint8_t decToBcd(uint8_t val);
+    uint8_t bcdToDec(uint8_t val);
 
-public:
-  void begin();
-  void startClock(void);
-  void stopClock(void);
-  void setTime(void);
-  void getTime(void);
-  void setcalibration(int mode, float Fmeas);
-  uint8_t calibratBySeconds(int mode, float offset_sec);
-  uint8_t readCalibrationReg(void);
-  uint8_t cap_sel(uint8_t value);
-  void reset();
-  void fillByHMS(uint8_t _hour, uint8_t _minute, uint8_t _second);
-  void fillByYMD(uint16_t _year, uint8_t _month, uint8_t _day);
-  void fillDayOfWeek(uint8_t _dow);
-  uint8_t second;
-  uint8_t minute;
-  uint8_t hour;
-  uint8_t dayOfWeek;// day of week, 1 = Monday
-  uint8_t dayOfMonth;
-  uint8_t month;
-  uint16_t year;
-private:  
-  uint8_t readReg(uint8_t reg);
-  void writeReg(uint8_t reg, uint8_t data);
+  public:
+    void begin();
+    void startClock(void);
+    void stopClock(void);
+    void setTime(void);
+    void getTime(void);
+    void setcalibration(int mode, float Fmeas);
+    uint8_t calibratBySeconds(int mode, float offset_sec);
+    uint8_t readCalibrationReg(void);
+    uint8_t cap_sel(uint8_t value);
+    void reset();
+    void fillByHMS(uint8_t _hour, uint8_t _minute, uint8_t _second);
+    void fillByYMD(uint16_t _year, uint8_t _month, uint8_t _day);
+    void fillDayOfWeek(uint8_t _dow);
+    uint8_t second;
+    uint8_t minute;
+    uint8_t hour;
+    uint8_t dayOfWeek;// day of week, 1 = Monday
+    uint8_t dayOfMonth;
+    uint8_t month;
+    uint16_t year;
+  private:
+    uint8_t readReg(uint8_t reg);
+    void writeReg(uint8_t reg, uint8_t data);
 };
 
 #endif
