@@ -1,4 +1,4 @@
-# Grove - High Precision RTC_PCF85063TP
+# Grove - High Precision RTC_PCF85063TP  [![Build Status](https://travis-ci.com/Seeed-Studio/Grove_High_Precision_RTC_PCF85063TP.svg?branch=master)](https://travis-ci.com/Seeed-Studio/Grove_High_Precision_RTC_PCF85063TP)
 Grove - High Precision RTC is based on PCD85063TP, it's usage is almost the same with ds1307.
 
 <img src=https://statics3.seeedstudio.com/seeed/img/2016-11/1GtDOEsSVtk0i3pa5JBXOSTb.jpg width=300><img src=https://statics3.seeedstudio.com/seeed/img/2016-11/brK2Tu9LnaVBztZnmbP8x0we.jpg width=300>
