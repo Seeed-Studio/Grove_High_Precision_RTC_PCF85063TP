@@ -34,6 +34,7 @@
 #define REG_CTRL1_STOP    0x20
 #define REG_CTRL2         0x01
 #define REG_OFFSET        0x02
+#define REG_RAM           0x03
 #define REG_SEC           0x04
 #define REG_SEC_OS        0x80
 #define REG_MIN           0x05
@@ -65,8 +66,10 @@ class PCD85063TP {
     void setTime(void);
     void getTime(void);
     void setcalibration(int mode, float Fmeas);
+    void setRam(uint8_t _value);
     uint8_t calibratBySeconds(int mode, float offset_sec);
     uint8_t readCalibrationReg(void);
+    uint8_t readRamReg(void);
     uint8_t cap_sel(uint8_t value);
     void reset();
     void fillByHMS(uint8_t _hour, uint8_t _minute, uint8_t _second);
