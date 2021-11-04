@@ -160,6 +160,15 @@ uint8_t PCD85063TP::readCalibrationReg(void) {
 }
 
 
+void PCD85063TP::setRam(uint8_t value) {
+    writeReg(REG_RAM, value);
+}
+
+uint8_t PCD85063TP::readRamReg(void) {
+    return readReg(REG_RAM);
+}
+
+
 /*
     @brief: internal oscillator capacitor selection for
            quartz crystals with a corresponding load capacitance
