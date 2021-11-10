@@ -1,5 +1,5 @@
 /****************************************************************************/
-//  Function: Header file for PCD85063TP
+//  Function: Header file for PCF85063TP
 //  Hardware: Grove - RTC v2.0
 //  Arduino IDE: Arduino-1.6.6
 //  Author:   FrankieChu
@@ -28,6 +28,8 @@
 
 #include <Arduino.h>
 
+#define PCF85063TP_I2C_ADDRESS 0x51
+#define PCF85063TP_OFFSET 0x02
 #define PCD85063TP_I2C_ADDRESS 0x51
 #define PCD85063TP_OFFSET 0x02
 #define REG_CTRL1         0x00
@@ -54,7 +56,7 @@
 #define SAT 6
 #define SUN 0
 
-class PCD85063TP {
+class PCF85063TP {
   private:
     uint8_t decToBcd(uint8_t val);
     uint8_t bcdToDec(uint8_t val);
@@ -86,5 +88,7 @@ class PCD85063TP {
     uint8_t readReg(uint8_t reg);
     void writeReg(uint8_t reg, uint8_t data);
 };
-
+// The typedef is because early versions of the library called it PCD85063TP
+// instead of PCF85063TP. This allows both class names to work.
+typedef PCF85063TP PCD85063TP;
 #endif

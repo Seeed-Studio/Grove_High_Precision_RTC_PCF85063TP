@@ -1,5 +1,5 @@
 #include "PCF85063TP.h"
-PCD85063TP RTclock; // define a object of PCD85063TP class
+PCF85063TP RTclock; // define a object of PCD85063TP class
 
 void setup() {
   Serial.begin(9600);

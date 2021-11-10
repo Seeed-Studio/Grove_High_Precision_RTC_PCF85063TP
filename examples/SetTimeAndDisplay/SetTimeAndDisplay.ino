@@ -40,7 +40,7 @@ void setup() {
 
     */
     //clock.setcalibration(1, 32767.2);  // Setting offset by clock frequency
-    uint8_t ret = clock.calibratBySeconds(0, -0.000041);
+    uint8_t ret = RTclock.calibratBySeconds(0, -0.000041);
     Serial.print("offset value: ");
     Serial.print("0x");
     Serial.println(ret, HEX);
@@ -52,7 +52,7 @@ void loop() {
 }
 /*Function: Display time on the serial monitor*/
 void printTime() {
-    clock.getTime();
+    RTclock.getTime();
     Serial.print(RTclock.hour, DEC);
     Serial.print(":");
     Serial.print(RTclock.minute, DEC);
