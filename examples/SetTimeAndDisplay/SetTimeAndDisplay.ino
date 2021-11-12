@@ -39,11 +39,22 @@ void setup() {
         RTclock.startClock();
 
     */
+    /*
+    // Either define PCF85063TP_USE_STRINGS in PCF85063TP.h or with
+    // -DPCF85063TP_USE_STRINGS
+    RTclock.stopClock();
+    RTclock.fillDateByString(__DATE__);
+    RTclock.fillTimeByString(__TIME__);
+    RTclock.setTime();//write time to the RTC chip
+    RTclock.startClock();
     //clock.setcalibration(1, 32767.2);  // Setting offset by clock frequency
+    */
+    /*
     uint8_t ret = RTclock.calibratBySeconds(0, -0.000041);
     Serial.print("offset value: ");
     Serial.print("0x");
     Serial.println(ret, HEX);
+    */
 
 }
 void loop() {
