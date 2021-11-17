@@ -77,6 +77,10 @@ class PCF85063TP {
     void fillByHMS(uint8_t _hour, uint8_t _minute, uint8_t _second);
     void fillByYMD(uint16_t _year, uint8_t _month, uint8_t _day);
     void fillDayOfWeek(uint8_t _dow);
+#ifdef PCF85063TP_USE_STRINGS
+    void fillDateByString(const char date_string[] = __DATE__);
+    void fillTimeByString(const char time_string[] = __TIME__);
+#endif
     uint8_t second;
     uint8_t minute;
     uint8_t hour;
@@ -87,6 +91,9 @@ class PCF85063TP {
   private:
     uint8_t readReg(uint8_t reg);
     void writeReg(uint8_t reg, uint8_t data);
+#ifdef PCF85063TP_USE_STRINGS
+    void timeOrDateStringsToInts(const char time_or_date[], int parts[]);
+#endif
 };
 // The typedef is because early versions of the library called it PCD85063TP
 // instead of PCF85063TP. This allows both class names to work.

@@ -203,3 +203,62 @@ void PCF85063TP::writeReg(uint8_t reg, uint8_t data) {
     Wire.endTransmission();
 
 }
+
+#ifdef PCF85063TP_USE_STRINGS
+void PCF85063TP::timeOrDateStringsToInts(const char time_or_date[],
+                                         int time_or_date_parts[]) {
+    int time_or_date_index = 0;
+    char mutable_time_or_date[12];
+    strcpy(mutable_time_or_date, time_or_date);
+    char *token;
+
+    token = strtok(mutable_time_or_date, " :");
+    while (token != NULL) {
+        char *token_end;
+        int value = strtol(token, &token_end, 10);
+        if (token == token_end) {
+            // If this occurs, there was no number to be parsed. Assume month.
+            if (strncmp(token, "Jan", 3) == 0) {
+                time_or_date_parts[time_or_date_index++] = 1;
+            } else if (strncmp(token, "Feb", 3) == 0) {
+                time_or_date_parts[time_or_date_index++] = 2;
+            } else if (strncmp(token, "Mar", 3) == 0) {
+                time_or_date_parts[time_or_date_index++] = 3;
+            } else if (strncmp(token, "Apr", 3) == 0) {
+                time_or_date_parts[time_or_date_index++] = 4;
+            } else if (strncmp(token, "May", 3) == 0) {
+                time_or_date_parts[time_or_date_index++] = 5;
+            } else if (strncmp(token, "Jun", 3) == 0) {
+                time_or_date_parts[time_or_date_index++] = 6;
+            } else if (strncmp(token, "Jul", 3) == 0) {
+                time_or_date_parts[time_or_date_index++] = 7;
+            } else if (strncmp(token, "Aug", 3) == 0) {
+                time_or_date_parts[time_or_date_index++] = 8;
+            } else if (strncmp(token, "Sep", 3) == 0) {
+                time_or_date_parts[time_or_date_index++] = 9;
+            } else if (strncmp(token, "Oct", 3) == 0) {
+                time_or_date_parts[time_or_date_index++] = 10;
+            } else if (strncmp(token, "Nov", 3) == 0) {
+                time_or_date_parts[time_or_date_index++] = 11;
+            } else if (strncmp(token, "Dec", 3) == 0) {
+                time_or_date_parts[time_or_date_index++] = 12;
+            }
+        } else {
+            time_or_date_parts[time_or_date_index++] = value;
+        }
+        token = strtok(NULL, " :");
+    }
+}
+
+void PCF85063TP::fillDateByString(const char date_string[]) {
+    int date_parts[3] = {0, 0, 0};
+    timeOrDateStringsToInts(date_string, date_parts);
+    fillByYMD(date_parts[2], date_parts[0], date_parts[1]);
+}
+
+void PCF85063TP::fillTimeByString(const char time_string[]) {
+    int time_parts[3] = {0, 0, 0};
+    timeOrDateStringsToInts(time_string, time_parts);
+    fillByHMS(time_parts[0], time_parts[1], time_parts[2]);
+}
+#endif
