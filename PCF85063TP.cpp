@@ -150,7 +150,7 @@ void PCF85063TP::setcalibration(int mode, float Fmeas) {
         offset = Eppm / 4.069;
     }
 
-    uint8_t data = (mode << 7) & 0x80 | ((int)(offset + 0.5) & 0x7f);
+    uint8_t data = ((mode << 7) & 0x80) | ((int)(offset + 0.5) & 0x7f);
     writeReg(PCF85063TP_OFFSET, data);
 }
 
